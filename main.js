@@ -20,14 +20,30 @@ let func = async ()=>{
         .sendKeys(password);
        await driver.findElement({className:"EdgeButtom--medium"}).click();
         
-        await driver.get(`https://twitter.com//${username}/followers`)
+        await driver.get(`https://twitter.com//${username}/followers`);
 
-        await driver.wait(until.titleIs("webdriver - google search"),100000)
+        let list = await driver.findElements({className:"fullname"});
+
+        let arr = [],temp = '';
+
+        console.log("Your followers are: \n");
+
+        for(el of list){
+            temp = await el.getAttribute("href");
+           if(temp){
+               temp = temp.split("https://twitter.com/");
+               if(temp[1] != username)
+                console.log(temp[1]);
+           }
+        }
 
 
+
+    } catch(err){
+        console.log("Something went wrong");
     } finally{
         await driver.quit();
-    }
+    } 
 }
 
 
