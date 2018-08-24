@@ -11,18 +11,17 @@ let func = async ()=>{
     let driver = await new Builder().forBrowser("firefox").build();
 
     try{
-        await driver.get("https://twitter.com/login?lang=en");
-        await driver.findElement(By.name("session[username_or_email]"))
-        .sendKeys("nodemon",Key.RETURN);
-        await driver.findElement(By.name("session[password]"))
-        .sendKeys("nodemon",Key.RETURN);
+        await driver.get("https://twitter.com/login");
+        await driver.findElement(By.className("js-username-field"))
+        .sendKeys("");
+        await driver.findElement(By.className("js-password-field"))
+        .sendKeys("");
+       await driver.findElement({className:"EdgeButtom--medium"}).click();
         
-
-        // let element = await driver.findElement({className:"flush-left"});
-        // console.log(await element.getAttribute('innerHTML'))
+        await driver.findElement(By.className("ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip")).click();
 
 
-        await driver.wait(until.titleIs("webdriver - google search"),5000)
+        await driver.wait(until.titleIs("webdriver - google search"),10000)
 
 
     } finally{
